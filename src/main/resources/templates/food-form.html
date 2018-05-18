@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="../templates/css/form.sass">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style>
+        .legend{
+            margin-left: 13%;
+        }
+        .btn-success{
+            float: left;
+        }
+
+        .control-group div:first-child{
+            margin-left: 11%;
+        }
+        .btn-danger{
+            margin-left: 2%;
+        }
+    </style>
+</head>
+<body>
+<form class="form-horizontal" action='' method="POST" th:action="@{/food/create}" th:object="${food}" >
+    <fieldset>
+        <div class="legend">
+            <h3 class="">Register</h3>
+        </div>
+        <input type="hidden" th:field="*{id}">
+        <div class="control-group">
+            <!-- Username -->
+            <label class="control-label" >Name</label>
+            <div class="controls">
+                <input type="text" th:field="*{name}" id="text_username">
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" >Category</label>
+            <div class="controls">
+                <!--<input type="text" th:field="*{category}">-->
+                <select th:selected="category" name="category" id="category">
+                    <option >Món nướng</option>
+                    <option >Món luộc</option>
+                    <option >Món chay</option>
+                    <option >Đồ uống</option>
+                </select>
+                <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category Error</span>
+            </div>
+            <input type="hidden" id="category-text">
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Description</label>
+            <div class="controls">
+                <input type="text" th:field="*{description}" >
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" >Image</label>
+            <div class="controls">
+                <input type="text" th:field="*{imgUrl}">
+                <span th:if="${#fields.hasErrors('imgUrl')}" th:errors="*{imgUrl}">Image Error</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Price</label>
+            <div class="controls">
+                <input type="text" th:field="*{price}" >
+                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Image Error</span>
+            </div>
+        </div>
+        <input type="hidden" name="status" value="2">
+        <div class="control-group">
+            <!-- Button -->
+            <div >
+                <button class="btn btn-success" type="submit">Submit</button>
+                <button class="btn btn-danger" type="reset">Reset</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</body>
+</html>
+
+<script>
+    $('.btn-success').click(function () {
+        value_category = $('#category option:selected').text();
+        $('#category-text').value(value_category);
+    });
+</script>

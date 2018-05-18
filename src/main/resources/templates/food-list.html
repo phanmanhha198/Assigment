@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>Title</title>
+    <style>
+        #table-product{
+            margin-top: 50px;
+        }
+        .title-table{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h2 class="title-table">List Food</h2>
+<div class="container" id="table-product">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>imgUrl</th>
+            <th>Price</th>
+            <th>Time Created At</th>
+            <th>Time Edit At</th>
+            <th>Trạng thái</th>
+            <th>Edit</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="food : ${pagination.getContent()}">
+            <td th:text="${food.id}" ></td>
+            <td th:text="${food.name}" ></td>
+            <td th:text="${food.category}" ></td>
+            <td th:text="${food.description}" ></td>
+            <td th:text="${food.imgUrl}" ></td>
+            <td th:text="${food.price}" ></td>
+            <td th:text="${food.timeCreatedAt}"></td>
+            <td th:text="${food.timeEditAt}"></td>
+            <td th:text="${food.status}"></td>
+            <td><a th:href="@{'/food/edit/' + ${food.id}}">Edit</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <nav aria-label=" navigation">
+        <ul class="pager">
+            <li><a th:href="@{/food/list(page=1, limit=${limit})}" >First</a></li>
+            <li th:if="${page &gt; 1}">
+                <a th:href="@{/food/list(page = ${page - 1}, limit=${limit})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a th:text="'Page' + ${page}">1</a></li>
+            <li th:if="${page &lt; pagination.getTotalPages()}">
+                <a th:href="@{/food/list(page=${page + 1}, limit=${limit})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li><a th:href="@{/food/list(page=${pagination.getTotalPages()}, limit=${limit})}" >Last</a></li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>
